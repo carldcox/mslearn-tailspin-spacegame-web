@@ -2,9 +2,15 @@ trigger:
 - '*'
 
 pool:
+<<<<<<< HEAD
   vmImage: 'ubuntu-16.04'
   demands:
     - npm
+=======
+  vmImage: 'ubuntu-latest'
+  demands:
+  - npm
+>>>>>>> build-pipeline
 
 variables:
   buildConfiguration: 'Release'
@@ -13,9 +19,16 @@ variables:
 
 steps:
 - task: UseDotNet@2
+<<<<<<< HEAD
   displayName: 'Use .NET Core SDK $(dotnetSdkVersion)'
   inputs:
     version: '$(dotnetSdkVersion)'
+=======
+  displayName: 'Use .Net core SDK $(dotnetSdkVersion)'
+  inputs:
+    packageType: sdk
+    version: $(dotnetSdkVersion)
+>>>>>>> build-pipeline
 
 - task: Npm@1
   displayName: 'Run npm install'
@@ -38,12 +51,21 @@ steps:
     command: 'restore'
     projects: '**/*.csproj'
 
+<<<<<<< HEAD
 - template: templates/build.yml
   parameters:
     buildConfiguration: 'Debug'
 
 - template: templates/build.yml
   parameters:
+=======
+- template: 'templates/build.yml'
+  parameters: 
+    buildConfiguration: 'Debug'
+
+- template: 'templates/build.yml'
+  parameters: 
+>>>>>>> build-pipeline
     buildConfiguration: 'Release'
 
 - task: PublishBuildArtifacts@1
